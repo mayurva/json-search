@@ -1,4 +1,8 @@
 require 'optparse'
+require 'yaml'
+
+require_relative 'users.rb'
+
 op = OptionParser.new do |opts|
   banner = <<-EOS
     Usage: ruby json-search.rb [-h] [-l [<set>]] [-s <set> [-f <field> <value>]]
@@ -30,7 +34,7 @@ op = OptionParser.new do |opts|
 
         You can search on following fields for #{set}:
         1. id
-        2. name
+        2. role
 
         e.g. To search for id=10, run following command
         ruby json-search.rb -s users -f id 10
@@ -41,6 +45,12 @@ op = OptionParser.new do |opts|
       opts.on('-f FIELD', '--field FIELD', 'search field') do |field|
         value = ARGV.shift
         puts "Searching for #{field}=#{value}"
+        users = Users.new 'users.json'
+        list =  users.search(field, value)
+        puts "Number of items matched: #{list.length}"
+        list.each do |item|
+          puts "\n\n#{item.to_yaml}\n\n"
+        end
         exit
       end
 
