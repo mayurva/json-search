@@ -5,7 +5,11 @@ require_relative 'users.rb'
 
 op = OptionParser.new do |opts|
   banner = <<-EOS
-    Usage: ruby json-search.rb [-h] [-l [<set>]] [-s <set> [-f <field> <value>]]
+    Usage: ruby json_search.rb [-h] [-l [<set>]] [-s <set> [-f <field> <value>]]
+
+    Try following command
+    ruby json_search.rb -l
+
     EOS
 
   opts.banner = banner
@@ -22,7 +26,7 @@ op = OptionParser.new do |opts|
       3. Organizations
 
       e.g. To search on user data set, run the following command:
-      ruby json-search.rb --set users
+      ruby json_search.rb -s users
 
       EOS
 
@@ -37,7 +41,10 @@ op = OptionParser.new do |opts|
         2. role
 
         e.g. To search for id=10, run following command
-        ruby json-search.rb -s users -f id 10
+        ruby json_search.rb -s users -f _id 10
+
+        This message is also displayed on
+        ruby json_search.rb -s users -l
 
         EOS
 
