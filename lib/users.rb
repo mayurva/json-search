@@ -1,4 +1,4 @@
-require 'dataset'
+require_relative './dataset.rb'
 
 ########
 # class to store user list
