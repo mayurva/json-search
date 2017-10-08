@@ -1,5 +1,4 @@
 require 'optparse'
-require 'yaml'
 
 require_relative '../lib/users.rb'
 require_relative '../lib/organizations.rb'
@@ -63,9 +62,8 @@ op = OptionParser.new do |opts|
         puts "Searching for #{field}=#{value}"
         list = dataset.search(field, value)
         puts "Number of items matched: #{list.length}"
-        list.each do |item|
-          puts "\n\n#{item.to_yaml}\n\n"
-        end
+        result = Dataset.new(list)
+        result.display
         exit
       end
 

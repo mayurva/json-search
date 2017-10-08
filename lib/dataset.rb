@@ -10,9 +10,15 @@ class Dataset
 
   attr_reader :list
 
-  def initialize(file)
-    file = File.read(file)
-    @list = JSON.parse(file)
+  # A new dataset may be initialized by passing an array of another dataset, or
+  # by loading the data set from file
+  def initialize(list)
+    if list.is_a?(Array)
+      @list = list
+    else
+      file = File.read(list)
+      @list = JSON.parse(file)
+    end
   end
 
   def search(field, value)
@@ -25,5 +31,15 @@ class Dataset
       end
     end
     result
+  end
+
+  def display
+    @list.each do |item|
+      puts '--------------------------------------------------------------'
+      item.each do |k, v|
+        printf "%-25s %s\n", k, v
+      end
+    end
+    puts '--------------------------------------------------------------'
   end
 end
