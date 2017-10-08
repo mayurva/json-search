@@ -18,7 +18,11 @@ class Dataset
   def search(field, value)
     result = []
     @list.each do |item|
-      result.push(item) if item[field].to_s == value
+      if item[field].is_a?(Array) && item[field].include?(value)
+        result.push(item)
+      elsif item[field].to_s == value
+        result.push(item)
+      end
     end
     result
   end

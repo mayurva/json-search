@@ -4,8 +4,8 @@ describe 'Dataset' do
   before do
     @filename = 'dataset.json'
     @list =
-      '[{"_id": 1,"url": "fake_url1","name": "name1","type": "common_type"},'\
-      '{"_id": 2,"url": "fake_url2","name": "name2","type": "common_type"}]'
+      '[{"_id": 1,"url": "fake_url1","name": "name1","type": "common_type","tags": ["tag1","tag2"]},'\
+      '{"_id": 2,"url": "fake_url2","name": "name2","type": "common_type","tags": ["tag3"]}]'
   end
   context '#initialize' do
     it 'receives a filename' do
@@ -47,6 +47,13 @@ describe 'Dataset' do
       expect(result[0]['_id']).to eq(1)
       expect(result[0]['type']).to eq('common_type')
       expect(result[1]['name']).to eq('name2')
+    end
+
+    it 'should search through multi-valued fields' do
+      result = @data.search('tags', 'tag1')
+      expect(result.size).to be(1)
+      expect(result[0]['_id']).to eq(1)
+      expect(result[0]['name']).to eq('name1')
     end
   end
 end
