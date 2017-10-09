@@ -53,4 +53,12 @@ class Dataset
     end
     puts '--------------------------------------------------------------'
   end
+
+  def self.display_search_fields
+    puts '--------------------------------------------------------------'
+    @search_fields.each do |field|
+      puts field
+    end
+    puts '--------------------------------------------------------------'
+  end
 end

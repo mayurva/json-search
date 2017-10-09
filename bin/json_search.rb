@@ -46,10 +46,8 @@ op = OptionParser.new do |opts|
       exit
     end
 
-    msg = <<-MSG
-        You can search on following fields for #{set}:
-        #{dataset.class.search_fields}
-
+    msg1 = "You can search on following fields for #{set}:"
+    msg2 = <<-MSG
         e.g. To search for id=10, run following command
         ruby json_search.rb -s #{set} -f _id 10
         This message is also displayed on
@@ -68,12 +66,16 @@ op = OptionParser.new do |opts|
       end
 
       opts.on('-l', '--list', 'List search fileds') do |_field|
-        puts msg
+        puts msg1
+        puts dataset.class.display_search_fields
+        puts msg2
         exit
       end
     end
     op.parse! ARGV
-    puts msg
+    puts msg1
+    dataset.class.display_search_fields
+    puts msg2
   end
 end
 op.parse! ARGV
