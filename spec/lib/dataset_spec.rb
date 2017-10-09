@@ -4,7 +4,7 @@ describe 'Dataset' do
   before do
     @filename = 'dataset.json'
     @list =
-      '[{"_id": 1,"url": "fake_url1","name": "name1","type": "common_type","tags": ["tag1","tag2"]},'\
+      '[{"_id": 1,"url": "fake_url1","name": "first1 last1","type": "common_type","tags": ["tag1","tag2"]},'\
       '{"_id": 2,"organization_name": "fake_url2","name": "name2","type": "common_type","tags": ["tag3"]}]'
   end
   context '#initialize with file name' do
@@ -32,7 +32,7 @@ describe 'Dataset' do
   context '#initialize with list' do
     before do
       @list = [
-        { '_id' => 1, 'name' => 'name1' },
+        { '_id' => 1, 'name' => 'first1 last1' },
         { '_id' => 2, 'name' => 'name2' }
       ]
     end
@@ -54,7 +54,7 @@ describe 'Dataset' do
       result = @data.search('_id', '1')
       expect(result.size).to be(1)
       expect(result[0]['_id']).to eq(1)
-      expect(result[0]['name']).to eq('name1')
+      expect(result[0]['name']).to eq('first1 last1')
     end
 
     it 'returns multiple matches' do
@@ -69,7 +69,15 @@ describe 'Dataset' do
       result = @data.search('tags', 'tag1')
       expect(result.size).to be(1)
       expect(result[0]['_id']).to eq(1)
-      expect(result[0]['name']).to eq('name1')
+      expect(result[0]['name']).to eq('first1 last1')
+    end
+
+    it 'should search through descriptive fields' do
+      Dataset.descriptive_fields = ['name']
+      result = @data.search('name', 'first1')
+      expect(result.size).to be(1)
+      expect(result[0]['_id']).to eq(1)
+      expect(result[0]['name']).to eq('first1 last1')
     end
   end
 
@@ -80,7 +88,7 @@ describe 'Dataset' do
       @output = "--------------------------------------------------------------\n"\
       "_id                       1\n"\
       "url                       fake_url1\n"\
-      "name                      name1\n"\
+      "name                      first1 last1\n"\
       "type                      common_type\n"\
       "tags                      [\"tag1\", \"tag2\"]\n"\
       "--------------------------------------------------------------\n"\

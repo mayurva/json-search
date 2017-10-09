@@ -7,6 +7,9 @@ class Tickets < Dataset
     _id url external_id created_at type subject description priority status recipient
     submitter_id assignee_id organization_id tags has_incidents due_at via requester_id
   ]
+
+  @descriptive_fields = %w[subject description]
+
   class << self
     attr_accessor :search_fields
   end
