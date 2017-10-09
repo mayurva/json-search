@@ -11,4 +11,12 @@ describe 'Organizations' do
                ])
     end
   end
+
+  context '#descriptive fields' do
+    it 'returns descriptive fields' do
+      descriptive_fields = Tickets.descriptive_fields
+      expect(descriptive_fields)
+        .to eq(%w[subject description])
+    end
+  end
 end

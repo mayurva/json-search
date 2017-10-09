@@ -11,4 +11,12 @@ describe 'Users' do
                ])
     end
   end
+
+  context '#descriptive fields' do
+    it 'returns descriptive fields' do
+      descriptive_fields = Users.descriptive_fields
+      expect(descriptive_fields)
+        .to eq(%w[name alias signature])
+    end
+  end
 end

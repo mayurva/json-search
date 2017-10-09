@@ -6,6 +6,9 @@ class Organizations < Dataset
   @search_fields = %w[
     _id url external_id name domain_names created_at details shared_tickets tags
   ]
+
+  @descriptive_fields = %w[name details]
+
   class << self
     attr_accessor :search_fields
   end

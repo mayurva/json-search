@@ -10,4 +10,12 @@ describe 'Organizations' do
                ])
     end
   end
+
+  context '#descriptive fields' do
+    it 'returns descriptive fields' do
+      descriptive_fields = Organizations.descriptive_fields
+      expect(descriptive_fields)
+        .to eq(%w[name details])
+    end
+  end
 end
