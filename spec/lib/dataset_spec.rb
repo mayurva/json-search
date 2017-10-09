@@ -104,4 +104,19 @@ describe 'Dataset' do
       expect { @data.display }.to output(@output).to_stdout
     end
   end
+
+  context '#display search fields' do
+    before do
+      allow(File).to receive(:read).with(@filename).and_return(@list)
+      Dataset.search_fields = %w[name description]
+      @output = "--------------------------------------------------------------\n"\
+        "name\n"\
+        "description\n"\
+        "--------------------------------------------------------------\n"
+    end
+
+    it 'should print the items in data set' do
+      expect { Dataset.display_search_fields }.to output(@output).to_stdout
+    end
+  end
 end
